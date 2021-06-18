@@ -1,0 +1,85 @@
+# DESCRIPTION
+# Problem from Functions Modeling Change, Connally et al., 3rd ed.
+# WeBWorK problem written by Nicholas Jacob <njacob@ecok.edu>
+# ENDDESCRIPTION
+
+## DBsubject(Trigonometry)
+## DBchapter(Trigonometric functions)
+## DBsection(Sine & cosine functions - definitions, graphs, & properties)
+## Institution(Loyola University Chicago and Fort Lewis College)
+## Author(Adam Spiegler and Paul Pearson)
+## Level(3)
+## TitleText1('Functions Modeling Change')
+## AuthorText1('Connally')
+## EditionText1('3')
+## Section1('6.2')
+## Problem1('13')
+## TitleText2('Functions Modeling Change')
+## AuthorText2('Connally')
+## EditionText2('4')
+## Section2('7.2')
+## Problem2('13')
+## KEYWORDS('sine','cosine','radians','degrees')
+
+DOCUMENT();
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGanswermacros.pl",
+#           "PGstandard.pl",
+#           "extraAnswerEvaluators.pl",
+#           "PGauxiliaryFunctions.pl",
+           "PGgraphmacros.pl",
+           "MathObjects.pl",
+#           "PGchoicemacros.pl",
+          # "parserNumberWithUnits.pl",
+          # "parserFormulaWithUnits.pl",
+          # "parserFormulaUpToConstant.pl",
+          # "PGcourse.pl",
+"AnswerFormatHelp.pl",
+"PGcourse.pl",
+          );
+
+
+TEXT(beginproblem());
+
+Context("Numeric");
+
+$showPartialCorrectAnswers = 1;
+
+$a = random(5,12,1);
+$b=random(2,5,1);
+$c= $a**2-$b;
+$b1=sqrt($b);
+$c1=sqrt($c);
+$r=sqrt($a**2+$b1**2);
+
+$ans1 = $c1/$a;
+
+
+Context()->functions->disable("Trig");
+
+Context()->texStrings;
+BEGIN_TEXT
+If it is known that  \( \sin\theta=\frac{\sqrt{$b}} {$a}\) and \(\cos\theta>0\), find the following. 
+$PAR
+
+\( \cos \theta = \) \{ ans_rule(10) \}
+$PAR
+
+\{ AnswerFormatHelp("numbers") \}
+END_TEXT
+Context()->normalStrings;
+
+
+ANS(num_cmp($ans1, strings=>['DNE']))  ;
+
+
+
+
+
+
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();

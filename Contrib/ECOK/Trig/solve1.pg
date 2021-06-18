@@ -1,0 +1,86 @@
+##DESCRIPTION
+## Solving Using Inverse Trigs
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'cosine', 'inverse')
+
+## DBsubject('Trigonometry')
+## Date('7/19/2016')
+## Author('Nicholas Jacob')
+## Institution('East Central University')
+## TitleText1('Trigonometry')
+## EditionText1('10')
+## AuthorText1('Lial, Hornsby, Schneider, Daniels')
+## Section1('6.4')
+
+
+########################################################################
+
+DOCUMENT();      
+
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGanswermacros.pl",
+           "PGauxiliaryFunctions.pl",
+           "parserVectorUtils.pl",
+           "AnswerFormatHelp.pl",      
+           "PGstandard.pl",     # Standard macros for PG language
+           "MathObjects.pl", 
+           "PGgraphmacros.pl",
+          "parserPopUp.pl",
+);
+
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 0;
+$refreshCachedImages=1;
+
+##############################################################
+#
+#  Setup
+#
+#
+
+$c = random(-5,-1,1);
+$d=random(2,8,1);
+$e = random(2,8,1);
+$f = random(3,7,1);
+
+$ans = Formula("arccos(x/$d)");
+
+Context("Numeric");
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+  BEGIN_TEXT
+
+Solve the equation \(x=$d\cos y\) for the variable \(y\).
+$BR
+
+\(y=\)\{ ans_rule(20) \}
+
+
+  END_TEXT
+
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans-> cmp());
+
+
+ENDDOCUMENT();     

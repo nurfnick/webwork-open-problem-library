@@ -1,0 +1,55 @@
+##DESCRIPTION
+## DBsubject(Trigonometry)
+## DBchapter(Analytic trigonometry)
+## DBsection(Using and proving basic identities)
+## Institution(ECU)
+## Author(Andrew Wells)
+## KEYWORDS('trigonometry','identity')
+##ENDDESCRIPTION
+
+DOCUMENT();      
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl", 
+"MathObjects.pl",
+);
+
+TEXT(&beginproblem);
+$showPartialCorrectAnswers = 0;
+Context("Numeric");
+Context()->functions->undefine("sec","csc","tan","cot","cos");
+
+Context('Numeric');
+
+##  formulas on LHS
+@leftTex=('\tan(x)','\cot(x)','\sec(x)');                            
+$size=scalar @leftTex;
+
+##  formulas on RHS
+@answer=('sin(x)/sqrt(1-sin^2(x))','sqrt(1-sin^2(x))/sin(x)','1/sqrt(1-sin^2(x))');                                                                
+
+##  Choose 3 from a pool of identities
+$slice=random(0,$size-1,1);
+
+($q1) = @leftTex[$slice] ;
+($ans1)= Compute(@answer[$slice]);
+
+BEGIN_TEXT
+
+Write \( $q1 \) in terms of \( \sin(x) \). You may assume that \( x\) is in quadrant one. 
+$PAR
+\{ans_rule(15)\}
+
+
+
+END_TEXT
+
+ANS( $ans1->cmp());
+
+
+
+ENDDOCUMENT(); 

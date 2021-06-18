@@ -1,0 +1,75 @@
+# DESCRIPTION
+# Problem from Functions Modeling Change, Connally et al., 3rd ed.
+# WeBWorK problem written by Adam Spiegler, <aspiegler@luc.edu>
+# ENDDESCRIPTION
+
+## DBsubject(Trigonometry)
+## DBchapter(Trigonometric functions)
+## DBsection(Trigonometric functions of non-special angles)
+## Institution(Loyola University Chicago and Fort Lewis College)
+## Author(Adam Spiegler and Paul Pearson)
+## Level(2)
+## TitleText1('Functions Modeling Change')
+## AuthorText1('Connally')
+## EditionText1('3')
+## Section1('6.2')
+## Problem1('20')
+## TitleText2('Functions Modeling Change')
+## AuthorText2('Connally')
+## EditionText2('4')
+## Section2('7.3')
+## Problem2('20')
+## KEYWORDS('sine','cosine','radians','degrees')
+
+DOCUMENT();
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGanswermacros.pl",
+#           "PGstandard.pl",
+#           "extraAnswerEvaluators.pl",
+           "PGauxiliaryFunctions.pl",
+#           "PGgraphmacros.pl",
+           "MathObjects.pl",
+#           "PGchoicemacros.pl",
+          # "parserNumberWithUnits.pl",
+          # "parserFormulaWithUnits.pl",
+          # "parserFormulaUpToConstant.pl",
+          # "PGcourse.pl",
+"parserVectorUtils.pl",
+"AnswerFormatHelp.pl",
+"PGcourse.pl",
+          );
+
+
+TEXT(beginproblem());
+
+Context("Numeric");
+
+$showPartialCorrectAnswers = 1;
+
+$angle = random(271,359);
+$tan= round(tan($angle*pi/180)*10000)/10000;
+
+Context()->functions->disable("Trig");
+
+Context()->texStrings;
+BEGIN_TEXT
+Use a calculator to find an angle \( \theta \) in the interval \( [270,360] \) where \( \tan(\theta) = $tan\). Round to the nearest whole degree.
+$PAR
+\( \theta \) = \{ ans_rule(20) \}
+
+END_TEXT
+Context()->normalStrings;
+
+ANS(num_cmp($angle,tol=>0.001,tolType=>"absolute") );
+
+Context()->texStrings;
+SOLUTION(EV3(<<'END_SOLUTION'));
+
+END_SOLUTION
+Context()->normalStrings;
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();

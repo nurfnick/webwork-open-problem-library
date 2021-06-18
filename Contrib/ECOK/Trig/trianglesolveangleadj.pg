@@ -1,0 +1,78 @@
+##DESCRIPTION
+##  Height of a Building
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'triangle', 'solve')
+
+## DBsubject('Trigonometry')
+## Date('6/3/2016')
+## Author('Nicholas Jacob')
+## Institution('East Central University')
+## TitleText1('Trigonometry')
+## EditionText1('10')
+## AuthorText1('Lial, Hornsby, Schneider, Daniels')
+## Section1('2.4')
+
+
+########################################################################
+
+DOCUMENT();      
+
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGanswermacros.pl",
+           "PGauxiliaryFunctions.pl",
+           "parserVectorUtils.pl",
+           "AnswerFormatHelp.pl",      
+           "PGstandard.pl",     # Standard macros for PG language
+           "MathObjects.pl"
+);
+
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+
+$b = random(20,250,1);
+$anglea = random (40,80,10);
+$angleb = random(10,30,10);
+$c = tan ($anglea*pi/180)*$b/tan($angleb*pi/180)+$b;
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+From a window $b ft above the street, the angle of elevation to the top of the building across the street is $anglea degrees and the angle of depression to the base of this building is $angleb degrees.  
+$PAR
+The height of the building across the street is \{ans_rule(20)\} ft.
+$PAR
+Hint:  Draw a picture or see the picture in your text chapter 2.4 number 43.
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS(num_cmp($c,tol=>.01,tolType=>"absolute"));
+# relative tolerance --3.1412 is incorrect but 3.1413 is correct
+# default tolerance is .01 or one percent.
+
+
+ENDDOCUMENT();        

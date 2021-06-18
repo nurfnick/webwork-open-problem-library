@@ -1,0 +1,75 @@
+##DESCRIPTION
+##  Bearing Application for Right Triangles
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'triangle', 'solve','applications')
+
+## DBsubject('Trigonometry')
+## Date('6/3/2016')
+## Author('Andrew Wells')
+## Institution('East Central University')
+## TitleText1('Trigonometry')
+## EditionText1('10')
+## AuthorText1('Lial, Hornsby, Schneider, Daniels')
+## Section1('2.5')
+
+
+########################################################################
+
+DOCUMENT();      
+
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGanswermacros.pl",
+           "PGauxiliaryFunctions.pl",
+           "parserVectorUtils.pl",
+           "AnswerFormatHelp.pl",      
+           "PGstandard.pl",     # Standard macros for PG language
+           "MathObjects.pl"
+);
+
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+
+$c = random(1,20,0.1);
+$beara= random (10,80,1);
+$bearb= 270 + $beara;
+$a = $c*sin($beara*pi/180);
+$b = $c*cos($beara*pi/180);
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+Two radar stations are $c km apart and Station B is directly east of Station A. Station A detects a plane at a bearing of $beara degrees and Station B simultaneously detects that same plane at a bearing of $bearb degrees. Draw a picture and use trigonometry to determine how far the plane is from Station B. Round your answer to 2 decimal places. (Refer to example from class for help).
+$PAR
+The plane is \{ans_rule(20)\} km from Station B.
+END_TEXT
+
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS(num_cmp($b,tol=>.01,tolType=>"absolute"));
+
+
+ENDDOCUMENT();        

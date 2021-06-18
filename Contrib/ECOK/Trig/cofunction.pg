@@ -1,0 +1,52 @@
+##DESCRIPTION
+## DBsubject(Trigonometry)
+## DBchapter(Analytic trigonometry)
+## DBsection(Using and proving basic identities)
+## Institution(ECU)
+## Author(Andrew Wells)
+## KEYWORDS('trigonometry','identity')
+##ENDDESCRIPTION
+
+DOCUMENT();      
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl", 
+"MathObjects.pl",
+"PGgraphmacros.pl",
+"PGasu.pl"
+);
+
+TEXT(&beginproblem);
+$showPartialCorrectAnswers = 0;
+Context("Numeric");
+
+##  formulas on LHS
+$degree1=random(3,89,1);
+$degree2=random(3,89,1);
+$degree3=random(3,89,1);
+
+$ans1=Compute(90-$degree1);
+$ans2=Compute(90-$degree2);
+$ans3=Compute(90-$degree3);
+
+BEGIN_TEXT
+
+Use cofunction identities to find \(x\) in the following equations.
+$PAR
+\( \cos($degree1^{\circ}) = \sin(x) \);     \(x=\)\{ans_rule\}
+$PAR
+\( \sec($degree2^\circ) = \csc(x) \); \(x=\)\{ans_rule\}
+$PAR
+\( \tan($degree3^\circ) = \cot(x) \); \(x=\)\{ans_rule\}
+END_TEXT
+
+ANS($ans1->cmp());
+ANS($ans2->cmp());
+ANS($ans3->cmp());
+
+ENDDOCUMENT(); 
+

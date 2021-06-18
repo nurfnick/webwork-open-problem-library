@@ -1,0 +1,57 @@
+## DESCRIPTION
+## Precalculus: Trigonometry
+## ENDDESCRIPTION
+
+## Tagged by cmd6a 6/22/06
+
+## DBsubject(Trigonometry)
+## DBchapter(Trigonometric functions)
+## DBsection(Inverse trigonometric functions - definitions, graphs, & properties)
+## Institution(ASU)
+## MLT(Inverse_exact)
+## Level(2)
+## KEYWORDS('trigonometry','inverse trigonometric function')
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGanswermacros.pl",
+           "PGauxiliaryFunctions.pl",
+           "parserVectorUtils.pl",
+           "AnswerFormatHelp.pl",      
+           "PGstandard.pl",     # Standard macros for PG language
+           "MathObjects.pl"
+);
+TEXT(beginproblem());
+Context("Numeric");
+Context()->flags->set(
+  tolerance => 0.0001,
+  tolType => "absolute",
+);
+
+
+$showPartialCorrectAnswers = 1;
+$denom= random(2,10,1);
+$num= $denom-1;
+$num2 = random(2,10,1);
+$ans1= Compute($num/sqrt($num**2+$denom**2));
+$ans2= Compute(sqrt($num2**2-1)/$num2);
+
+Context()->functions->disable("Trig"); 
+
+BEGIN_TEXT
+Give the exact value of the following composed function. Be sure to use sqrt to represent square roots.
+$PAR
+\( \sin(\tan^{-1}(\frac{$num}{$denom})) = \) \{ans_rule(10) \}
+$PAR
+\( \cos(\csc^{-1}($num2)) = \) \{ans_rule(10) \}
+
+END_TEXT
+
+ANS($ans1->cmp());
+ANS($ans2->cmp());
+
+
+ENDDOCUMENT();        # This should be the last executable line in the problem.

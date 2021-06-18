@@ -1,0 +1,89 @@
+##DESCRIPTION
+## Amplitude of Sine
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'triangle', 'cosine','amplitude')
+
+## DBsubject('Trigonometry')
+## Date('7/19/2016')
+## Author('Nicholas Jacob')
+## Institution('East Central University')
+## TitleText1('Trigonometry')
+## EditionText1('10')
+## AuthorText1('Lial, Hornsby, Schneider, Daniels')
+## Section1('4.1')
+
+
+########################################################################
+
+DOCUMENT();      
+
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGanswermacros.pl",
+           "PGauxiliaryFunctions.pl",
+           "parserVectorUtils.pl",
+           "AnswerFormatHelp.pl",      
+           "PGstandard.pl",     # Standard macros for PG language
+           "MathObjects.pl", 
+           "PGgraphmacros.pl",
+          "parserPopUp.pl",
+);
+
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 0;
+$refreshCachedImages=1;
+
+##############################################################
+#
+#  Setup
+#
+#
+
+$c = random(-5,-1,1);
+$d=random(2,8,1);
+ $gr3 = init_graph(-9,$c-1,9,-$c+1,axes=>[0,0],grid=>[18,-2*$c+2]);
+  add_functions($gr3,
+  "$c*cos(2*pi*x/$d) for x in <-9,9> using color:black and weight:2");
+
+# the arguments of PopUp are [list of answers], 
+#    correct answer
+$popup = PopUp(["?", "sine", "cosine", "tangent"], "cosine");
+
+Context("Numeric");
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+  BEGIN_TEXT
+  \{ image( insertGraph($gr3), tex_size=>250 ) \}
+  $BR
+The trig function graphed above can be expanded by clicking on it.  The function graphed above has amplitude \{ ans_rule(10) \}, has a period of \{ ans_rule(10) \} and is the \{ $popup->menu() \} function.
+
+
+
+  END_TEXT
+
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS(num_cmp(-$c,tol=>.01,tolType=>"absolute"));
+ANS(num_cmp($d,tol=>.01,tolType=>"absolute"));
+ANS( $popup->cmp() );
+
+ENDDOCUMENT();     

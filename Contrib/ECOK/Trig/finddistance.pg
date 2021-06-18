@@ -1,0 +1,75 @@
+##DESCRIPTION
+## Speed Angular and Linear
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'triangle', 'solve','applications')
+
+## DBsubject('Trigonometry')
+## Date('7/19/2016')
+## Author('Nicholas Jacob')
+## Institution('East Central University')
+## TitleText1('Trigonometry')
+## EditionText1('10')
+## AuthorText1('Lial, Hornsby, Schneider, Daniels')
+## Section1('3.2')
+
+
+########################################################################
+
+DOCUMENT();      
+
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGanswermacros.pl",
+           "PGauxiliaryFunctions.pl",
+           "parserVectorUtils.pl",
+           "AnswerFormatHelp.pl",      
+           "PGstandard.pl",     # Standard macros for PG language
+           "MathObjects.pl"
+);
+
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+
+$c = random(2,5,1);
+$b= random (5,8,1);
+$theta=random(3,4,1);
+$t=random(5,60,2);
+$a=$c*$b*pi*$t*60/$theta;
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+How far (linear distance) has a fixed point on a circle of radius $c feet traveled after $t minutes when the circle is rotating at \(\frac{$b\pi}{$theta}\) radians per second?
+$PAR
+\{ans_rule(20)\} feet
+END_TEXT
+
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS(num_cmp($a,tol=>.01,tolType=>"absolute"));
+
+
+ENDDOCUMENT();     

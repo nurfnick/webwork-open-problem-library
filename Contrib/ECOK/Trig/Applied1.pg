@@ -1,0 +1,66 @@
+##DESCRIPTION
+## compute speed correction from radar using outside calculator.  Adopted from Adam Spiegler's problem
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry')
+
+## DBsubject(Trigonometry)
+## DBchapter(Trigonometric functions)
+## DBsection(Modeling with trigonometric functions)
+## Date(7/19/2016)
+## Author(Nicholas Jacob)
+## Institution(East Central University)
+
+DOCUMENT();
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGanswermacros.pl",
+#           "PGstandard.pl",
+#           "extraAnswerEvaluators.pl",
+           "PGauxiliaryFunctions.pl",
+#           "PGgraphmacros.pl",
+           "MathObjects.pl",
+#           "PGchoicemacros.pl",
+          # "parserNumberWithUnits.pl",
+          # "parserFormulaWithUnits.pl",
+          # "parserFormulaUpToConstant.pl",
+          # "PGcourse.pl",
+"parserVectorUtils.pl",
+"AnswerFormatHelp.pl",
+"PGcourse.pl",
+          );
+
+
+TEXT(beginproblem());
+
+Context("Numeric");
+
+$showPartialCorrectAnswers = 1;
+
+$angle = random(5,20,1);
+$speed = random(50,80,1);
+$ans = round($speed*cos($angle*pi/180)*100)/100;
+
+Context()->functions->disable("Trig");
+
+Context()->texStrings;
+BEGIN_TEXT
+Radar guns which measure the speed of vehicles are designed to be accurate when directly in front of the moving vehicle. In practice, however, the gun is usually offset on the side of the road. This changes the reading somewhat. If \( R \) is the reading, \( s \) the speed of the vehicle, and \( \theta \) the angle of offset, then \( R = s \cos(\theta) \). If a car is moving at a speed of $speed miles per hour and the radar gun is offset by an angle of \( $angle^\circ \), what will the reading on the gun be? Round to two decimal places.
+$PAR
+The radar reading will be \{ ans_rule(20) \} miles per hour.
+
+END_TEXT
+Context()->normalStrings;
+
+ANS(num_cmp($ans,tol=>0.01,tolType=>"absolute") );
+
+Context()->texStrings;
+SOLUTION(EV3(<<'END_SOLUTION'));
+
+END_SOLUTION
+Context()->normalStrings;
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();

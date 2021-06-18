@@ -1,0 +1,80 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+## DBsubject(Trigonometry)
+## DBchapter(Analytic trigonometry)
+## DBsection(Addition & subtraction formulas)
+## Institution(ECU)
+## Author(Andrew Wells)
+
+DOCUMENT();      
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl", 
+"PGgraphmacros.pl",
+"PGasu.pl",
+);
+
+TEXT(&beginproblem);
+
+##   trig functions in TeX
+@givenTex=('\sin(\alpha)','\cos(\alpha)','\sin(\beta)','\cos(\beta)');
+
+##   generate rational sine value for alpha              a/b
+
+do {
+  $a=random(2,10,1);
+  $b=random($a+1,12,1);
+   } until (gcd($a,$b)==1);
+
+$c=$b*$b-$a*$a;
+
+
+$value=$a/$b;
+
+##   values in TeX
+$valuesTex="\frac{$a}{$b}";           
+
+
+##   signs of sine/cosine in 1,2,3,4 quadrants
+@signs=('','-','-','');            #cos
+  
+	
+##   sign values of sine/cosine in 1,2,3,4 quadrants
+@signval=(1,-1,-1,1);           #cos
+@cosign=(1,1,-1,-1);  # The sign of cos(a) based on quadrant of cos(2a)  
+	
+##   randomize quadrant and quadrant type for alpha (I or 0<alpha<pi/2)
+$quadind1=random(0,3,1);
+@quadrant1=('\(2\alpha\) is in quadrant I','\(2\alpha\) is in quadrant II',               
+           '\(2\alpha\) is in quadrant III','\(2\alpha\) is in quadrant IV');
+
+$ans1 = sqrt((1-$signval[$quadind1]*$value)/2);
+$ans2 = $cosign[$quadind1]*sqrt(($signval[$quadind1]*$value+1)/2);
+
+BEGIN_TEXT
+
+Given \(\cos(2\alpha)=$signs[$quadind1]$valuesTex\)
+and  $quadrant1[$quadind1]. Use double angle formulas to find the following: 
+
+$BR
+Note: You are not allowed to use decimals in your answer.
+
+$PAR
+
+\(\sin(\alpha)=\)\{ans_rule(20)\}
+\(\cos(\alpha)=\)\{ans_rule(20)\}
+
+END_TEXT
+
+
+
+ANS(exact_no_trig("$ans1") );
+ANS(exact_no_trig("$ans2") );
+
+
+ENDDOCUMENT(); 

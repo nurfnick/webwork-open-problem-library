@@ -1,0 +1,21 @@
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"parserSolutionFor.pl",
+);
+
+TEXT(beginproblem());
+Context("Vector")->variables->are(x=>'Real',y=>'Real');
+$f = SolutionFor("x^2 = cos(y)","(1,0)");
+Context()->texStrings;
+BEGIN_TEXT
+A solution to \($f->{f}\) is \((x,y)\) = \{ans_rule(30)\}.
+END_TEXT
+Context()->normalStrings;
+$showPartialCorrectAnswers = 1;
+
+ANS( $f->cmp() );
+
+ENDDOCUMENT();

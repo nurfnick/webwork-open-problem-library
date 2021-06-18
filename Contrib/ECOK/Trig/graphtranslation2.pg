@@ -1,0 +1,89 @@
+##DESCRIPTION
+## Translation of Sine
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'triangle', 'sine','amplitude', 'translation')
+
+## DBsubject('Trigonometry')
+## Date('8/24/2016')
+## Author('Nicholas Jacob')
+## Institution('East Central University')
+## TitleText1('Trigonometry')
+## EditionText1('10')
+## AuthorText1('Lial, Hornsby, Schneider, Daniels')
+## Section1('4.1')
+
+
+########################################################################
+
+DOCUMENT();      
+
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGanswermacros.pl",
+           "PGauxiliaryFunctions.pl",
+           "parserVectorUtils.pl",
+           "AnswerFormatHelp.pl",      
+           "PGstandard.pl",     # Standard macros for PG language
+           "MathObjects.pl", 
+           "PGgraphmacros.pl",
+          "parserPopUp.pl",
+);
+
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 0;
+$refreshCachedImages=1;
+
+##############################################################
+#
+#  Setup
+#
+#
+
+$c = random(2,5,1);
+ $gr3 = init_graph(-6,-1+$c,6,1+$c,axes=>[0,$c],grid=>[12,2*$c]);
+  add_functions($gr3,
+  "sin(x)+$c for x in <-6,6> using color:black and weight:2");
+
+# the arguments of PopUp are [list of answers], 
+#    correct answer
+$popup = PopUp(["?", "right", "left", "up", "down"], "up");
+
+Context("Numeric");
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+  BEGIN_TEXT
+  \{ image( insertGraph($gr3), tex_size=>250 ) \}
+  $BR
+The trig function graphed above can be expanded by clicking on it.  The sine function graphed above has been translated \{ $popup->menu() \} by \{ ans_rule(10) \} units.  
+
+
+
+
+  END_TEXT
+
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+
+ANS( $popup->cmp() );
+ANS(num_cmp($c,tol=>.01,tolType=>"absolute"));
+
+ENDDOCUMENT();     

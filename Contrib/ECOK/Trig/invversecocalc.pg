@@ -1,0 +1,56 @@
+## DESCRIPTION
+## Precalculus: Trigonometry
+## ENDDESCRIPTION
+
+## Tagged by cmd6a 6/22/06
+
+## DBsubject(Trigonometry)
+## DBchapter(Trigonometric functions)
+## DBsection(Inverse trigonometric functions - definitions, graphs, & properties)
+## Institution(ASU)
+## MLT(Inverse_exact)
+## Level(2)
+## KEYWORDS('trigonometry','inverse trigonometric function')
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGanswermacros.pl",
+           "PGauxiliaryFunctions.pl",
+           "parserVectorUtils.pl",
+           "AnswerFormatHelp.pl",      
+           "PGstandard.pl",     # Standard macros for PG language
+           "MathObjects.pl"
+);
+TEXT(beginproblem());
+Context("Numeric");
+Context()->flags->set(
+  tolerance => 0.01,
+  tolType => "absolute",
+);
+$showPartialCorrectAnswers = 1;
+$csc1= random(1.1,8,0.001);
+$ans1 = Compute(acsc(-$csc1));
+$sec1=random(1.1,8,0.001);
+$ans2=Compute(asec($sec1));
+$cot1=random(1,5,0.001);
+$ans3=Compute(acot($cot1));
+Context()->functions->disable("Trig"); 
+
+BEGIN_TEXT
+Use a calculator to give the real number value of the following. Be sure to use radian mode and round to two decimal places. 
+$PAR
+\(\csc^{-1}(-$csc1) = \) \{ans_rule(10) \}
+$PAR
+\(\sec^{-1}($sec1) = \) \{ans_rule(10) \}
+$PAR
+\(\cot^{-1}($cot1) = \) \{ans_rule(10) \} 
+END_TEXT
+
+ANS($ans1->cmp());
+ANS($ans2->cmp());
+ANS($ans3->cmp());
+
+ENDDOCUMENT();        # This should be the last executable line in the problem.

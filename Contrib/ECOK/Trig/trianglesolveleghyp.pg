@@ -1,0 +1,85 @@
+##DESCRIPTION
+##  Solving Right Triangle Given Two Sides
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'triangle', 'solve')
+
+## DBsubject('Trigonometry')
+## Date('6/3/2016')
+## Author('Andrew Wells')
+## Institution('East Central University')
+## TitleText1('Trigonometry')
+## EditionText1('10')
+## AuthorText1('Lial, Hornsby, Schneider, Daniels')
+## Section1('2.4')
+
+
+########################################################################
+
+DOCUMENT();      
+
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGanswermacros.pl",
+           "PGauxiliaryFunctions.pl",
+           "parserVectorUtils.pl",
+           "AnswerFormatHelp.pl",      
+           "PGstandard.pl",     # Standard macros for PG language
+           "MathObjects.pl"
+);
+
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+
+$a = random(1,5,1);
+$c = random(6,15,1);
+$b = sqrt($c**2 - $a**2);
+$anglea = arcsin($a/$c)*180/pi;
+$angleb = arccos($a/$c)*180/pi;
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+
+
+In a right triangle, the lengths of the one leg is a = $a and the length of the hypotenuse is c = $c. Round all answers to 2 decimal places.
+$PAR
+The length of the other leg is b = \{ans_rule(20)\}
+$PAR
+The measure of the angle opposite side a is \{ans_rule(20)\} degrees.
+$PAR
+The measure of the angle opposite side b is \{ans_rule(20)\} degrees.
+
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS(num_cmp($b,tol=>.01,tolType=>"absolute"));
+ANS(num_cmp($anglea,tol=>.01,tolType=>"absolute"));
+ANS(num_cmp($angleb,tol=>.01,tolType=>"absolute"));
+# relative tolerance --3.1412 is incorrect but 3.1413 is correct
+# default tolerance is .01 or one percent.
+
+
+ENDDOCUMENT();        

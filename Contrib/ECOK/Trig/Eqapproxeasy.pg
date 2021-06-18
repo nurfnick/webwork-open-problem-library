@@ -1,0 +1,86 @@
+##DESCRIPTION
+##  Solving Right Triangle Given Two Sides
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'equation', 'solve')
+
+## DBsubject('Trigonometry')
+## Date('6/3/2016')
+## Author('Andrew Wells')
+## Institution('East Central University')
+## TitleText1('Trigonometry')
+## EditionText1('10')
+## AuthorText1('Lial, Hornsby, Schneider, Daniels')
+## Section1('2.4')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGanswermacros.pl",
+           "PGauxiliaryFunctions.pl",
+           "parserVectorUtils.pl",
+           "AnswerFormatHelp.pl",      
+           "PGstandard.pl",     
+           "MathObjects.pl",
+           "PGgraphmacros.pl",
+           "PGasu.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(&beginproblem);
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+
+#Choose from a list of trig functions
+@funcTex1=("\sin^2(x)","\cos^2(x)");
+$index1=random(0,1,1);
+#Choose coefficients
+$a=random(3,25,1);
+$ansin=asin(sqrt(1/$a));
+$anscos=acos(sqrt(1/$a));
+#Answers to factor 1
+@ans1 = (List($ansin,$ansin+pi,pi-$ansin,2*pi-$ansin),List($anscos,$anscos+pi,pi-$anscos,2*pi-$anscos));
+
+$ans = Compute($ans1[$index1])->with(tolType => 'absolute',
+  tolerance => .001,
+);
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+Solve the following equation in the interval \(0\leq x <2\pi\). Round your answers to three decimal places. If there are multiple answers, separate them with commas: 
+$PAR
+\[ $a $funcTex1[$index1] = 1\]
+$PAR
+\( x=\) \{ans_rule(20)\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp());
+# relative tolerance --3.1412 is incorrect but 3.1413 is correct
+# default tolerance is .01 or one percent.
+
+
+ENDDOCUMENT();        

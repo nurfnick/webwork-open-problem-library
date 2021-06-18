@@ -1,0 +1,81 @@
+##DESCRIPTION
+##  Solving Right Triangle Given Two Sides
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'equation', 'solve')
+
+## DBsubject('Trigonometry')
+## Date('6/3/2016')
+## Author('Andrew Wells')
+## Institution('East Central University')
+## TitleText1('Trigonometry')
+## EditionText1('10')
+## AuthorText1('Lial, Hornsby, Schneider, Daniels')
+## Section1('2.4')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGanswermacros.pl",
+           "PGauxiliaryFunctions.pl",
+           "parserVectorUtils.pl",
+           "AnswerFormatHelp.pl",      
+           "PGstandard.pl",     
+           "MathObjects.pl",
+           "PGgraphmacros.pl",
+           "PGasu.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(&beginproblem);
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+
+#Choose from a list of trig functions
+@funcTex=("\tan(2x)","\cot(2x)");
+$index=random(0,1,1);
+@funcTex2=("\sec(2x)","\csc(2x)");
+@oper=('+','-');
+$indexoper=random(0,1,1);
+
+@anslist=(List(0,pi),List(pi/4,5*pi/4),List(pi/2,3*pi/2),List(3*pi/4,7*pi/4));
+$ans=Compute($anslist[$index+2*$indexoper]);
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+Solve the following equation in the interval \(0\leq x <2\pi\). Write the exact answers, no decimals. If there are multiple answers, separate them with commas. Use pi to represent \(\pi\). (For example, to enter \(\frac{10\pi}{27} \), type 10pi/27): 
+$PAR
+\[ $funcTex[$index] $oper[$indexoper] $funcTex2[$index] =  1 \] 
+$PAR
+\( x =\) \{ans_rule(20)\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp());
+# relative tolerance --3.1412 is incorrect but 3.1413 is correct
+# default tolerance is .01 or one percent.
+
+
+ENDDOCUMENT();        

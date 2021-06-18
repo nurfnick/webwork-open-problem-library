@@ -1,0 +1,45 @@
+##DESCRIPTION
+## DBsubject(Trigonometry)
+## DBchapter(Analytic trigonometry)
+## DBsection(Using and proving basic identities)
+## Institution(ECU)
+## Author(Andrew Wells)
+## KEYWORDS('trigonometry','identity')
+##ENDDESCRIPTION
+
+DOCUMENT();      
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl", 
+"MathObjects.pl",
+"PGgraphmacros.pl",
+"PGasu.pl"
+);
+
+TEXT(&beginproblem);
+$showPartialCorrectAnswers = 0;
+Context("Numeric");
+
+##  formulas on LHS
+@radian=(5*pi/12,7*pi/12,11*pi/12,13*pi/12,17*pi/12,19*pi/12,23*pi/12,pi/12,-1*pi/12,-5*pi/12,-7*pi/12,-11*pi/12,-13*pi/12,-17*pi/12);
+@texvalue=('\dfrac{5\pi}{12}','\dfrac{7\pi}{12}','\dfrac{11\pi}{12}','\dfrac{13\pi}{12}','\dfrac{17\pi}{12}','\dfrac{19\pi}{12}','\dfrac{23\pi}{12}','\dfrac{\pi}{12}','-\dfrac{\pi}{12}','-\dfrac{5\pi}{12}','-\dfrac{7\pi}{12}','-\dfrac{11\pi}{12}','-\dfrac{13\pi}{12}','-\dfrac{17\pi}{12}');
+
+$index=random(0,13,1);
+
+$ans1=Compute(sin($radian[$index]));
+$wtf=Compute(sin('-1*pi/12'));
+BEGIN_TEXT
+
+Use the sum and difference identities for sine to find the exact value of \( \sin\left($texvalue[$index]\right) \). 
+$PAR
+\( \sin\left($texvalue[$index]\right) =\) \{ans_rule\}
+END_TEXT
+
+ANS(exact_no_trig($ans1));
+
+ENDDOCUMENT(); 
+

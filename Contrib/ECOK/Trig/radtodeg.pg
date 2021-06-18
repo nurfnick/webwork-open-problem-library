@@ -1,0 +1,73 @@
+##DESCRIPTION
+##  Algebra problem: true or false for inequality 
+##ENDDESCRIPTION
+
+##KEYWORDS('algebra', 'inequality', 'fraction')
+
+## DBsubject('Algebra')
+## DBchapter('Fundamentals')
+## DBsection('Real Numbers')
+## Date('6/3/2002')
+## Author('')
+## Institution('')
+## TitleText1('Precalculus')
+## EditionText1('3')
+## AuthorText1('Stewart, Redlin, Watson')
+## Section1('1.1')
+## Problem1('22')
+
+########################################################################
+
+DOCUMENT();      
+DOCUMENT();
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGanswermacros.pl",
+#           "PGstandard.pl",
+#           "extraAnswerEvaluators.pl",
+           "PGauxiliaryFunctions.pl",
+#           "PGgraphmacros.pl",
+           "MathObjects.pl",
+#           "PGchoicemacros.pl",
+          # "parserNumberWithUnits.pl",
+          # "parserFormulaWithUnits.pl",
+          # "parserFormulaUpToConstant.pl",
+          # "PGcourse.pl",
+"parserVectorUtils.pl",
+"AnswerFormatHelp.pl",
+"PGcourse.pl",
+          );
+
+
+TEXT(beginproblem());
+
+Context("Numeric");
+
+$showPartialCorrectAnswers = 1;
+
+$angle = random(1,20,.25);
+$rad=$angle/pi*180;
+
+Context()->functions->disable("Trig");
+
+Context()->texStrings;
+BEGIN_TEXT
+If the measure of an angle is \($angle \), what is the decimal approximation of its measure in degrees? Round your answer to three decimal places.
+$PAR
+\{ ans_rule(20) \} degrees
+
+END_TEXT
+Context()->normalStrings;
+
+ANS(num_cmp($rad,tol=>0.001,tolType=>"absolute") );
+
+Context()->texStrings;
+SOLUTION(EV3(<<'END_SOLUTION'));
+
+END_SOLUTION
+Context()->normalStrings;
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();

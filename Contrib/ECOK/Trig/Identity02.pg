@@ -1,0 +1,88 @@
+##DESCRIPTION
+## DBsubject(Trigonometry)
+## DBchapter(Analytic trigonometry)
+## DBsection(Using and proving basic identities)
+## Institution(NAU)
+## Author(Monika Keindl)
+## MLT(KentMoreLike3)
+## MLTleader(1)
+## Level(3)
+## KEYWORDS('trigonometry','identity')
+##ENDDESCRIPTION
+
+# File Created: 6/9/05
+# Location: Northern Arizona University
+# Course: MAT 125
+
+DOCUMENT();      
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl", 
+"PGgraphmacros.pl",
+"PGasu.pl"
+);
+
+TEXT(&beginproblem);
+$showPartialCorrectAnswers = 0;
+
+
+
+##  formulas on LHS
+@leftTex=('\displaystyle\frac{\sec(x)}{\tan(x)}',
+          '\displaystyle\frac{\cot(x)}{\csc(x)}',
+	  '\displaystyle\frac{\tan(x)}{\sec(x)}',
+          '\displaystyle\frac{\cos(x)}{\cot(x)}',
+          '\displaystyle\frac{\sin(x)}{\tan(x)}',
+          '\displaystyle\frac{\sec(x)}{\csc(x)}',
+          '\displaystyle\frac{\csc(x)}{\sec(x)}',
+          '\displaystyle\frac{\tan(x)}{\sin(x)}',
+          '\displaystyle\frac{\csc(x)}{\cot(x)}',
+          '\displaystyle\frac{\cot(x)}{\cos(x)}',);              
+$size=scalar @leftTex;
+
+##  formulas on RHS
+@answer=('csc(x)','cos(x)','sin(x)','sin(x)','cos(x)','tan(x)','cot(x)','sec(x)','sec(x)','csc(x)');
+
+##  strings forbidden in the answer by prefilter
+@left=('tan','cot','tan','cot','tan','csc','csc','tan','cot','cot');
+
+##  load answer evaluator
+for($i=0;$i<$size;$i++){
+      $mycmp[$i] = fun_cmp($answer[$i]);
+      $mycmp[$i]->install_pre_filter(must_have_filter($left[$i],
+                  'no',
+                  "$left[$i] (x) is not allowed in this answer"));
+			$mycmp[$i]->install_post_filter(~~&catch_errors_filter);
+}
+
+##  Choose 3 from a pool of identities
+@slice=NchooseK($size,2);
+
+($q1,$q2) = @leftTex[@slice] ;
+($ans1,$ans2)= @mycmp[@slice];
+
+BEGIN_TEXT
+
+Write each expression as a single trigonometric function.
+$PAR
+\( $q1 \) = \{ans_rule(15)\}
+$BR
+$BR
+\( $q2 \) = \{ans_rule(15)\} 
+$BR
+
+
+
+
+
+END_TEXT
+
+ANS( $ans1);
+ANS( $ans2);
+
+
+ENDDOCUMENT(); 

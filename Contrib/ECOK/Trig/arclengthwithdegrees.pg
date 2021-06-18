@@ -1,0 +1,73 @@
+##DESCRIPTION
+## Arc Length on Circle
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'triangle', 'solve','applications')
+
+## DBsubject('Trigonometry')
+## Date('7/19/2016')
+## Author('Nicholas Jacob')
+## Institution('East Central University')
+## TitleText1('Trigonometry')
+## EditionText1('10')
+## AuthorText1('Lial, Hornsby, Schneider, Daniels')
+## Section1('3.2')
+
+
+########################################################################
+
+DOCUMENT();      
+
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGanswermacros.pl",
+           "PGauxiliaryFunctions.pl",
+           "parserVectorUtils.pl",
+           "AnswerFormatHelp.pl",      
+           "PGstandard.pl",     # Standard macros for PG language
+           "MathObjects.pl"
+);
+
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+
+$c = random(1,20,1);
+$b= random (2,80,1);
+$a=$c*$b*pi/180;
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+Find the exact length of the arc on a circle of radius \($c\) cm that has a central angle of \($b^\circ\). 
+$PAR
+\{ans_rule(20)\} cm
+END_TEXT
+
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS(num_cmp($a,tol=>.01,tolType=>"absolute"));
+
+
+ENDDOCUMENT();   

@@ -1,0 +1,53 @@
+##DESCRIPTION
+## DBsubject(Trigonometry)
+## DBchapter(Analytic trigonometry)
+## DBsection(Using and proving basic identities)
+## Institution(ECU)
+## Author(Andrew Wells)
+## KEYWORDS('trigonometry','identity')
+##ENDDESCRIPTION
+
+DOCUMENT();      
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl", 
+"MathObjects.pl",
+"PGgraphmacros.pl",
+"PGasu.pl"
+);
+
+TEXT(&beginproblem);
+$showPartialCorrectAnswers = 0;
+Context("Numeric");
+
+##  formulas on LHS
+$radian1=random(3,20,1);
+$radian2=random(1,10,1);
+$radian3=random(4,20,2);
+$denom2=2*$radian2+1;
+$numer3=$radian3/2-1;
+$ans1=Compute(pi/2-(pi/$radian1));
+$ans2=Compute(pi/2-(2*pi/($radian2*2+1)));
+$ans3=Compute(pi/2-$numer3*pi/$radian3);
+
+BEGIN_TEXT
+
+Use cofunction identities to find \(x\) in the following equations. (Assume that \(0 \leq x \leq \frac{\pi}{2} \) ).
+$PAR
+\( \csc\left(\frac{\pi}{$radian1}\right) = \sec(x) \);     \(x=\)\{ans_rule\}
+$PAR
+\( \sin(\frac{2\pi}{$denom2}) = \cos(x) \); \(x=\)\{ans_rule\}
+$PAR
+\( \tan(\frac{$numer3\pi}{$radian3}) = \cot(x) \); \(x=\)\{ans_rule\}
+END_TEXT
+
+ANS($ans1->cmp());
+ANS($ans2->cmp());
+ANS($ans3->cmp());
+
+ENDDOCUMENT(); 
+

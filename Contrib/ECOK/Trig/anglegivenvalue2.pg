@@ -1,0 +1,45 @@
+##DESCRIPTION
+## Compute angle of cos given value, multiple solutions
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry')
+
+## DBsubject(Trigonometry)
+## DBchapter(Trigonometric functions)
+## DBsection(Trigonometric functions of special angles)
+## Date(7/19/2016)
+## Author(Nicholas Jacob)
+## Institution(East Central University)
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl",
+"MathObjects.pl"
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 0;
+
+$a = random(1,3,2);
+$b = 2;
+$f=-sqrt($a)/$b;
+
+TEXT(EV2(<<EOT));
+Find all values of \(\theta\), if \(\theta\) is in the interval \(\left[0^\circ,360^\circ\right)\).
+$BR
+\(\cos \theta=-\frac{\sqrt{$a}}{$b}\)
+$PAR
+\(\theta=\) \{ans_rule(15)\}.
+$BR
+EOT
+
+$ans1=acos($f)*180/pi;
+$ans2=360-$ans1;
+ ANS(List($ans1,$ans2)->cmp);
+
+ENDDOCUMENT();        # This should be the last executable line in the problem.

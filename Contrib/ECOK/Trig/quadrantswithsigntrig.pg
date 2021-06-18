@@ -1,0 +1,88 @@
+# DESCRIPTION
+# Problem from Functions Modeling Change, Connally et al., 3rd ed.
+# WeBWorK problem written by Nicholas Jacob <njacob@ecok.edu>
+# ENDDESCRIPTION
+
+## DBsubject(Trigonometry)
+## DBchapter(Trigonometric functions)
+## DBsection(Sine & cosine functions - definitions, graphs, & properties)
+## Institution(Loyola University Chicago and Fort Lewis College)
+## Author(Adam Spiegler and Paul Pearson)
+## Level(3)
+## TitleText1('Functions Modeling Change')
+## AuthorText1('Connally')
+## EditionText1('3')
+## Section1('6.2')
+## Problem1('13')
+## TitleText2('Functions Modeling Change')
+## AuthorText2('Connally')
+## EditionText2('4')
+## Section2('7.2')
+## Problem2('13')
+## KEYWORDS('sine','cosine','radians','degrees')
+
+DOCUMENT();
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGanswermacros.pl",
+#           "PGstandard.pl",
+#           "extraAnswerEvaluators.pl",
+#           "PGauxiliaryFunctions.pl",
+           "PGgraphmacros.pl",
+           "MathObjects.pl",
+#           "PGchoicemacros.pl",
+          # "parserNumberWithUnits.pl",
+          # "parserFormulaWithUnits.pl",
+          # "parserFormulaUpToConstant.pl",
+          # "PGcourse.pl",
+"AnswerFormatHelp.pl",
+"PGcourse.pl",
+          );
+
+
+TEXT(beginproblem());
+
+Context("Numeric");
+
+$showPartialCorrectAnswers = 0;
+
+
+
+Context()->functions->disable("Trig");
+
+Context()->texStrings;
+BEGIN_TEXT
+Identify the correct quadrant for each of the angles.  Enter your answer in Arabic numerals (like 1,2,3 or 4, NOT I, II, III, IV).
+$PAR
+\( \sin \theta>0, \cos\theta>0\) \{ ans_rule(10) \}
+$PAR
+\( \cos \theta >0, \tan\theta>0 \) \{ ans_rule(10) \}
+$PAR
+\( \tan \theta<0, \cos\theta<0 \) \{ ans_rule(10) \}
+$PAR
+\( \sec \theta<0, \csc\theta<0  \) \{ ans_rule(10) \}
+$PAR
+\( \sec \theta>0, \csc\theta>0\) \{ ans_rule(10) \}
+$PAR
+
+
+
+END_TEXT
+
+Context()->normalStrings;
+
+ ANS(List(1)->cmp);
+ ANS(List(1)->cmp);
+ ANS(List(2)->cmp);
+ ANS(List(3)->cmp);
+ ANS(List(1)->cmp);
+
+
+
+
+
+
+
+COMMENT('MathObject version');
+ENDDOCUMENT();

@@ -1,0 +1,43 @@
+##DESCRIPTION
+## DBsubject(Trigonometry)
+## DBchapter(Analytic trigonometry)
+## DBsection(Using and proving basic identities)
+## Institution(ECU)
+## Author(Andrew Wells)
+## KEYWORDS('trigonometry','identity')
+##ENDDESCRIPTION
+
+DOCUMENT();      
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl", 
+"MathObjects.pl",
+"PGgraphmacros.pl",
+"PGasu.pl"
+);
+
+TEXT(&beginproblem);
+$showPartialCorrectAnswers = 0;
+Context("Numeric");
+
+##  formulas on LHS
+@degree=('75','105','165','195','255','285','345','15','-15','-75','-105','-165','-195','-255');
+$index=random(0,13,1);
+
+$ans1=Compute(cos(@degree[$index]*pi/180));
+
+BEGIN_TEXT
+
+Use the sum and difference identities for cosine to find the exact value of \( \cos($degree[$index]^\circ) \).
+$PAR
+\( \cos($degree[$index]^\circ) =\) \{ans_rule\}
+END_TEXT
+
+ANS(exact_no_trig($ans1));
+
+ENDDOCUMENT(); 
+

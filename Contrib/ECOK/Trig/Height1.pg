@@ -1,0 +1,76 @@
+##DESCRIPTION
+##  Bearing Application for Right Triangles
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'triangle', 'solve','applications')
+
+## DBsubject('Trigonometry')
+## Date('6/3/2016')
+## Author('Andrew Wells')
+## Institution('East Central University')
+## TitleText1('Trigonometry')
+## EditionText1('10')
+## AuthorText1('Lial, Hornsby, Schneider, Daniels')
+## Section1('2.5')
+
+
+########################################################################
+
+DOCUMENT();      
+
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGanswermacros.pl",
+           "PGauxiliaryFunctions.pl",
+           "parserVectorUtils.pl",
+           "AnswerFormatHelp.pl",      
+           "PGstandard.pl",     # Standard macros for PG language
+           "MathObjects.pl"
+);
+
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+
+$anglea = random(20,70,0.1);
+$angleb = $anglea - random(5,15,0.1);
+$d= random(10,90,5);
+$x= ($d*tan($angleb*pi/180))/(tan($anglea*pi/180)-tan($angleb*pi/180));
+$h= $x*tan($anglea*pi/180);
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+You are measuring the height of a building. From one point, the angle of elevation to the top of the building is $anglea degrees. If you step back $d feet, the angle of elevation from that new point to the top of the building is $angleb degrees. How tall is the building? Round your answer to two decimal places. (See example from class for help).
+$PAR
+The building is \{ans_rule(20)\} feet tall. 
+END_TEXT
+
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS(num_cmp($h,tol=>.01,tolType=>"absolute"));
+
+
+ENDDOCUMENT();        

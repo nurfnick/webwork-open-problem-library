@@ -1,0 +1,3 @@
+<h1 style="text-align:center"> Welcome to</h1> <h1 style="text-align:center"> Trigonometry </h1>
+<hr>
+<p> As you can see there is lots to do!  Get started with the orientation to familiarize yourself with the system.</p>

@@ -1,0 +1,83 @@
+##DESCRIPTION
+## Amplitude of Sine
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'triangle', 'cosine','amplitude')
+
+## DBsubject('Trigonometry')
+## Date('7/19/2016')
+## Author('Nicholas Jacob')
+## Institution('East Central University')
+## TitleText1('Trigonometry')
+## EditionText1('10')
+## AuthorText1('Lial, Hornsby, Schneider, Daniels')
+## Section1('4.1')
+
+
+########################################################################
+
+DOCUMENT();      
+
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGanswermacros.pl",
+           "PGauxiliaryFunctions.pl",
+           "parserVectorUtils.pl",
+           "AnswerFormatHelp.pl",      
+           "PGstandard.pl",     # Standard macros for PG language
+           "MathObjects.pl", 
+           "PGgraphmacros.pl",
+          "parserPopUp.pl",
+);
+
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 0;
+$refreshCachedImages=1;
+
+##############################################################
+#
+#  Setup
+#
+#
+
+$c = random(-5,-1,1);
+$d=random(2,8,1);
+$e = random(2,8,1);
+$f = random(3,7,1);
+
+$ans = Formula("$c*cot($d*(x+$e))-$f");
+
+Context("Numeric");
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+  BEGIN_TEXT
+
+A cotangent function has been transformed by stretching by $c units and the period has been changed to \( \frac{\pi}{$d} \).  Then the graph was translated to the left $e units and down $f units.  The final function is \{ ans_rule(20) \}
+
+
+  END_TEXT
+
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans-> cmp());
+
+
+ENDDOCUMENT();     

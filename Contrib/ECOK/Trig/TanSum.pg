@@ -1,0 +1,100 @@
+##DESCRIPTION
+##ENDDESCRIPTION
+
+## DBsubject(Trigonometry)
+## DBchapter(Analytic trigonometry)
+## DBsection(Addition & subtraction formulas)
+## Institution(ECU)
+## Author(Andrew Wells)
+
+DOCUMENT();      
+
+loadMacros(
+"PG.pl",
+"PGbasicmacros.pl",
+"PGchoicemacros.pl",
+"PGanswermacros.pl",
+"PGauxiliaryFunctions.pl", 
+"PGgraphmacros.pl",
+"PGasu.pl",
+);
+
+TEXT(&beginproblem);
+
+##   trig functions in TeX
+@givenTex=('\sin(\alpha)','\cos(\alpha)','\sin(\beta)','\cos(\beta)');
+
+##   generate rational tangent value for alpha              a/b
+
+do {
+  $a=random(2,8,1);
+  $b=random(2,9,1);
+   } until (gcd($a,$b)==1);
+
+##   generate rational tangent value for beta               m/n
+
+do {
+  $m=random(2,8,1);
+  $n=random(1,12,1);
+   } until (gcd($m,$n)==1);
+
+
+##   values of tangent
+@values=($a/$b,                  #tan(alpha) 
+         $m/$n,                  #tan(beta)
+	 );
+
+##   values in TeX
+@valuesTex=("\frac{$a}{$b}",           #tan(alpha)
+            "\frac{$m}{$n}",           #tan(beta)
+	    );   
+
+
+##   signs of sine/cosine in 1,2,3,4 quadrants
+@signs=(['','-','','-'],            #tan
+        ['','-','','-']            #tan
+	);    
+	
+##   sign values of sine/cosine in 1,2,3,4 quadrants
+@signval=([1,-1,1,-1],            #tan
+          [1,-1,1,-1]            #tan
+	 );    
+	
+##   randomize quadrant and quadrant type for alpha (I or 0<alpha<pi/2)
+$quadind1=random(0,3,1);
+@quadrant1=('\(\alpha\) is in quadrant I','\(\alpha\) is in quadrant II',               
+           '\(\alpha\) is in quadrant III','\(\alpha\) is in quadrant IV');
+
+
+##   randomize quadrant and quadrant type for beta (I or 0<alpha<pi/2)
+$quadind2=random(0,3,1);
+@quadrant2=('\(\beta\) is in quadrant I','\(\beta\) is in quadrant II',               
+           '\(\beta\) is in quadrant III','\(\beta\) is in quadrant IV');
+
+
+$ans1 = ($signval[0][$quadind1] * $values[0] +$signval[1][$quadind2] * $values[1])/(1- $signval[0][$quadind1] * $values[0]*$signval[1][$quadind2] * $values[1]);
+
+
+
+BEGIN_TEXT
+
+Given \(\tan(\alpha)=$signs[0][$quadind1]$valuesTex[0]\)
+and  $quadrant1[$quadind1] and  
+\(\tan(\beta)=$signs[1][$quadind2]$valuesTex[1]\)
+and  $quadrant2[$quadind2]. Use sum and difference formulas to find the following: 
+
+$BR
+Note: You are not allowed to use decimals in your answer.
+
+$PAR
+
+\(\tan(\alpha + \beta)=\)\{ans_rule(20)\}
+
+END_TEXT
+
+
+
+ANS(exact_no_trig("$ans1") );
+
+
+ENDDOCUMENT(); 

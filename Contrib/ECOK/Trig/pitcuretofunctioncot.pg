@@ -1,0 +1,96 @@
+##DESCRIPTION
+## Amplitude of Sine
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'triangle', 'cosine','amplitude')
+
+## DBsubject('Trigonometry')
+## Date('7/19/2016')
+## Author('Nicholas Jacob')
+## Institution('East Central University')
+## TitleText1('Trigonometry')
+## EditionText1('10')
+## AuthorText1('Lial, Hornsby, Schneider, Daniels')
+## Section1('4.1')
+
+
+########################################################################
+
+DOCUMENT();      
+
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGanswermacros.pl",
+           "PGauxiliaryFunctions.pl",
+           "parserVectorUtils.pl",
+           "AnswerFormatHelp.pl",      
+           "PGstandard.pl",     # Standard macros for PG language
+           "MathObjects.pl", 
+           "PGgraphmacros.pl",
+          "parserPopUp.pl",
+);
+
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 0;
+$refreshCachedImages=1;
+
+##############################################################
+#
+#  Setup
+#
+#
+
+$c = random(3,7,1);
+$d=random(2,8,2);
+$d1=$d+1;
+$e = random(2,4,1);
+$f = random(-3,-1,1);
+ $gr3 = init_graph(-$d-1,-$c-1+$f,$d+1,$c+1+$f,axes=>[0,0],grid=>[2*$d+2,2*$c+2]);
+  add_functions($gr3,
+  "$c*cot(pi/$d*(x-$e))+$f for x in <-$d1,$d1> using color:black and weight:2");
+
+$func = Compute("$c*cot(pi/$d*(x-$e))+$f");
+
+$p=-$d/2+$e;
+$q=-$d/4+$e;
+
+$fp=$func->eval(x=>$p);
+$fq=$func->eval(x=>$q);
+
+Context("Numeric");
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+  BEGIN_TEXT
+  \{ image( insertGraph($gr3), tex_size=>250 ) \}
+  $BR
+The trig function graphed above can be expanded by clicking on it.  The function graphed has an asymptote at \(x=$e\) goes through the points \(\left($p,$fp \right)\) and \(\left($q,$fq\right)\) and is 
+$BR
+ \(y=\)\{ ans_rule(35) \}
+
+
+
+  END_TEXT
+
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS( $func->cmp() );
+
+ENDDOCUMENT();     

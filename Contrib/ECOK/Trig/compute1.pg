@@ -1,0 +1,86 @@
+##DESCRIPTION
+## Computing TrigFunctions
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'triangle', 'solve','applications')
+
+## DBsubject('Trigonometry')
+## Date('7/20/2016')
+## Author('Nicholas Jacob')
+## Institution('East Central University')
+## TitleText1('Trigonometry')
+## EditionText1('10')
+## AuthorText1('Lial, Hornsby, Schneider, Daniels')
+## Section1('3.3')
+
+
+########################################################################
+
+DOCUMENT();      
+
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGanswermacros.pl",
+           "PGauxiliaryFunctions.pl",
+           "parserVectorUtils.pl",
+           "AnswerFormatHelp.pl",      
+           "PGstandard.pl",     # Standard macros for PG language
+           "MathObjects.pl"
+);
+
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+TEXT(beginproblem());
+
+Context("Numeric");
+
+$showPartialCorrectAnswers = 1;
+
+$a = list_random(3,4,6);
+$r=$a+1;
+
+$ans1 = sin ($r*pi/$a);
+$ans2 = cos ($r*pi/$a);
+$ans3 = tan ($r*pi/$a);
+#$ans4=-1/$ans3;
+#$ans5=-1/$ans2;
+#$ans6=1/$ans1;
+
+Context()->functions->disable("Trig");
+
+Context()->texStrings;
+BEGIN_TEXT
+
+Consider the radian angle  \(\theta= \frac{$r\pi}{$a}\). Find the following 
+$PAR
+\( \sin\theta = \) \{ ans_rule(10) \}
+$PAR
+\( \cos\theta = \) \{ ans_rule(10) \}
+$PAR
+\( \tan\theta = \) \{ ans_rule(10) \}
+$PAR
+
+
+\{ AnswerFormatHelp("numbers") \}
+END_TEXT
+Context()->normalStrings;
+
+ANS(Real("$ans1")->cmp() );
+ANS(Real("$ans2")->cmp() );
+ANS(Real("$ans3")->cmp() );
+
+
+
+
+ENDDOCUMENT();   

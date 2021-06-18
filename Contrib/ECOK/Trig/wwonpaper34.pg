@@ -1,0 +1,95 @@
+##DESCRIPTION
+## WeBWorK on Paper
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'graphing', 'tangent','cotangent')
+
+## DBsubject('Trigonometry')
+## Date('8/25/2016')
+## Author('Nicholas Jacob')
+## Institution('East Central University')
+## TitleText1('Trigonometry')
+## EditionText1('10')
+## AuthorText1('Lial, Hornsby, Schneider, Daniels')
+## Section1('4.1')
+
+
+########################################################################
+
+DOCUMENT();      
+
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGanswermacros.pl",
+           "PGauxiliaryFunctions.pl",
+           "parserVectorUtils.pl",
+           "AnswerFormatHelp.pl",      
+           "PGstandard.pl",     # Standard macros for PG language
+           "MathObjects.pl", 
+           "PGgraphmacros.pl",
+          "parserPopUp.pl",
+          "unionLists.pl",
+);
+
+
+# Print problem number and point value (weight) for the problem
+TEXT(beginproblem());
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 0;
+$refreshCachedImages=1;
+
+##############################################################
+#
+#  Setup
+#
+#
+
+$a = random(2,8,1);
+$b= random(2,5,1);
+$c = random(-5,-1,1);
+$d=random(2,8,1);
+$e = $b+7;
+
+
+
+
+Context("Numeric");
+
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+  BEGIN_TEXT
+To finish your assignment, you are asked to create by hand four graphs and submit them via a corresponding Blackboard assignment.  You should label all axes and graph two periods of the function.  You are asked to write down the function next to the graph.  Any submission not meeting these standards will not be considered for full credit.
+
+\{ BeginList("UL") \}
+$ITEM\( y=\sec\left($a x-\pi\right) \)
+$ITEMSEP
+$ITEM \( y=\csc\left(\frac{x}{$d}-\frac{\pi}{$d} \right)\)
+$ITEMSEP
+$ITEM \( y=$c\sec\left( x+\frac{\pi}{$b}\right)+$e \)
+$ITEMSEP
+$ITEM \( y=$b\csc\left(\frac{1}{$d}\left( x-\frac{\pi}{$d}\right)\right) \)
+\{ EndList("UL") \}
+
+This is worth 4 participation points.
+
+  END_TEXT
+
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+
+
+ENDDOCUMENT();     

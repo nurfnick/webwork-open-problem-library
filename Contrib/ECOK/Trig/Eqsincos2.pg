@@ -1,0 +1,83 @@
+##DESCRIPTION
+##  Solving Right Triangle Given Two Sides
+##ENDDESCRIPTION
+
+##KEYWORDS('trigonometry', 'equation', 'solve')
+
+## DBsubject('Trigonometry')
+## Date('6/3/2016')
+## Author('Andrew Wells')
+## Institution('East Central University')
+## TitleText1('Trigonometry')
+## EditionText1('10')
+## AuthorText1('Lial, Hornsby, Schneider, Daniels')
+## Section1('2.4')
+
+########################################################################
+
+DOCUMENT();      
+
+loadMacros("PG.pl",
+           "PGbasicmacros.pl",
+           "PGanswermacros.pl",
+           "PGauxiliaryFunctions.pl",
+           "parserVectorUtils.pl",
+           "AnswerFormatHelp.pl",      
+           "PGstandard.pl",     
+           "MathObjects.pl",
+           "PGgraphmacros.pl",
+           "PGasu.pl"
+);
+
+# Print problem number and point value (weight) for the problem
+TEXT(&beginproblem);
+
+# Show which answers are correct and which ones are incorrect
+$showPartialCorrectAnswers = 1;
+
+##############################################################
+#
+#  Setup
+#
+#
+Context("Numeric");
+
+#Choose from a list of trig functions
+@funcTex1=("\sin(x)","\cos(x)");
+$index1=random(0,1,1);
+#Choose another factor
+@funcTex2=("\tan(x)-","\tan(x)+","\cot(x)-","\cot(x)+","\sec(x)-2","\sec(x)+2","\csc(x)-2","\csc(x)+2");
+$index2=random(0,7,1);
+#Answers to factor 1
+@ans1 = (List(0,pi),List(pi/2,3*pi/2));
+@ans2 = (List(pi/4,5*pi/4),List(3*pi/4,7*pi/4),List(pi/4,5*pi/4),List(3*pi/4,7*pi/4),List(pi/3,5*pi/3),List(2*pi/3,4*pi/3),List(pi/6,5*pi/6),List(7*pi/6,11*pi/6));
+$ans = Compute($ans1[$index1].$ans2[$index2]);
+
+##############################################################
+#
+#  Text
+#
+#
+
+Context()->texStrings;
+BEGIN_TEXT
+Solve the following equation in the interval \(0\leq x <2\pi\). Write the exact answers, no decimals. If there are multiple answers, separate them with commas. Use pi to represent \(\pi\). (For example, to enter \(\frac{10\pi}{27} \), type 10pi/27): : 
+$PAR
+\[$funcTex1[$index1]$funcTex2[$index2]$funcTex1[$index1] =0 \]
+$PAR
+\( x=\) \{ans_rule(20)\}
+END_TEXT
+Context()->normalStrings;
+
+##############################################################
+#
+#  Answers
+#
+#
+
+ANS($ans->cmp());
+# relative tolerance --3.1412 is incorrect but 3.1413 is correct
+# default tolerance is .01 or one percent.
+
+
+ENDDOCUMENT();        
